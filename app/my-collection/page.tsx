@@ -2,18 +2,14 @@
 
 import { useState, useEffect } from "react"
 import { CollectionsHeader } from "@/components/collections/collections-header"
-import { CollectionsGrid } from "@/components/collections/collections-grid"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
-
-// Mock user hook - in a real app, this would come from an auth provider
-const useUser = () => {
-  const [user] = useState(null) // Simulate a logged-out user
-  return { user }
-}
+import { useAuth } from "@/hooks/use-auth"
+import { UserCoinTransactions } from "@/components/profile/user-coin-transactions"
+import { UserGiftCards } from "@/components/profile/user-gift-cards"
 
 export default function MyCollectionPage() {
-  const { user } = useUser()
+  const { user } = useAuth()
   const router = useRouter()
 
   useEffect(() => {
@@ -36,7 +32,12 @@ export default function MyCollectionPage() {
   return (
     <div className="container mx-auto py-8 px-4 md:px-6">
       <CollectionsHeader />
-      <CollectionsGrid />
+      <div className="mt-8">
+        <UserCoinTransactions />
+      </div>
+      <div className="mt-8">
+        <UserGiftCards />
+      </div>
     </div>
   )
 }
